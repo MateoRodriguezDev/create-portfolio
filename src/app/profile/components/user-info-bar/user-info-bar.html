@@ -1,37 +1,39 @@
-<section class="grid grid-cols-[auto_1fr_auto] gap-6 items-start bg-accent/35 p-6 rounded-lg w-229">
+<section
+  class="grid grid-cols-[auto_1fr] lg:grid-cols-[auto_1fr_auto] gap-6 items-start glass p-6 rounded-lg"
+>
+  <div>
+    <img
+      src="./assets/images/profile.png"
+      alt="profileIMG"
+      class="w-35 md:w-42 border-3 border-secondary-content"
+    />
+  </div>
 
-    <div>
-        <img src="./assets/images/profile.png"
-             alt="profileIMG"
-             class="w-42 border-3 border-secondary-content">
+  <div>
+    <h2 class="text-2xl text-base-content font-montserrat">Ryuqq</h2>
+    <div class="flex gap-2 items-center mt-1">
+      <img
+        class="w-4 h-3"
+        src="https://community.fastly.steamstatic.com/public/images/countryflags/ar.gif"
+      />
+      <p class="text-info-content font-montserrat">General Roca, Rio Negro, Argentina</p>
     </div>
+  </div>
 
-    <div>
-        <h2 class="text-2xl text-base-content font-montserrat">Ryuqq</h2>
-        <div class="flex gap-2 items-center mt-1">
-            <img class="w-4 h-3"
-                 src="https://community.fastly.steamstatic.com/public/images/countryflags/ar.gif">
-            <p class="text-info-content font-montserrat">
-                General Roca, Rio Negro, Argentina
-            </p>
-        </div>
+  <div class="flex flex-col items-start gap-4 col-span-2 lg:col-span-1">
+    <div class="flex flex-row lg:flex-col w-full justify-between items-center">
+      <h2 class="text-2xl font-montserrat">
+        Projects amount:
+        <span class="text-success">99</span>
+      </h2>
+
+      <div class="flex items-center gap-2">
+        <img
+          class="w-12"
+          src="https://raw.githubusercontent.com/devicons/devicon/670a611ad1c3e057ee385168d65c8ab27a7e1be5/icons/visualstudio/visualstudio-original.svg"
+        />
+        <h2 class="text-info-content font-montserrat">Software Developer</h2>
+      </div>
     </div>
-
-    <div class="flex flex-col items-start gap-4">
-        <h2 class="text-2xl font-montserrat">
-            Projects amount:
-            <span class="text-success">99</span>
-        </h2>
-
-        <div class="flex items-center gap-2">
-            <img class="w-12"
-                 src="https://community.fastly.steamstatic.com/public/images/badges/02_years/steamyears10_80.png">
-            <h2 class="text-info-content font-montserrat">Software Developer</h2>
-        </div>
-
-        <button class="btn btn-soft btn-accent font-montserrat">
-            Modificar Perfil
-        </button>
-    </div>
-
+  </div>
 </section>
