@@ -43,8 +43,14 @@
   <div>
     <h2 class="text-xl text-base-content font-montserrat mb-2">My Links:</h2>
     <div class="flex flex-col gap-2">
-        <a class="text-md hover:cursor-pointer hover:text-white text-base-content font-montserrat" href="https://www.linkedin.com/in/mateo-rodriguez-243920239/" target="_blank">Linkedin</a>
-        <a class="text-md hover:cursor-pointer hover:text-white text-base-content font-montserrat" href="https://github.com/MateoRodriguezDev" target="_blank">Github</a>
+      @for (link of links(); track $index) {
+        <a
+        class="text-md hover:cursor-pointer hover:text-white text-base-content font-montserrat"
+        [href]="link.url"
+        target="_blank"
+        >{{ link.descripcion }}</a
+      >
+      }
     </div>
   </div>
 </section>

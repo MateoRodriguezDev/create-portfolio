@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { UserProfileResponse } from '../../interfaces/userProfile.interface';
 
 @Component({
   selector: 'app-user-info-bar',
@@ -6,4 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './user-info-bar.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserInfoBar { }
+export class UserInfoBar {
+
+  profile = input.required<UserProfileResponse>()
+
+}

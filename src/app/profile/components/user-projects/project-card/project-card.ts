@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Project } from '../../../interfaces/userProfile.interface';
 
 @Component({
   selector: 'app-project-card',
@@ -6,4 +7,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './project-card.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectCard { }
+export class ProjectCard {
+  project = input.required<Project>()
+
+  technologies = computed(() =>
+    this.project().technologies.map(t => t.technology)
+  );
+
+}

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Link } from '../../interfaces/userProfile.interface';
 
 @Component({
   selector: 'app-user-links-techs',
@@ -6,4 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './user-links-techs.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserLinksTechs { }
+export class UserLinksTechs {
+
+  links = input.required<Link[]>()
+
+}

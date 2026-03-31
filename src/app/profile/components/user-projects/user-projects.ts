@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ProjectCard } from './project-card/project-card';
+import { Project } from '../../interfaces/userProfile.interface';
 
 @Component({
   selector: 'app-user-projects',
@@ -7,4 +8,8 @@ import { ProjectCard } from './project-card/project-card';
   templateUrl: './user-projects.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserProjects { }
+export class UserProjects {
+
+  projects = input.required<Project[]>()
+
+}

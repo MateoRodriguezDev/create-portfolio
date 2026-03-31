@@ -1,10 +1,17 @@
 <section class="m-6 md:w-180 lg:w-229">
-  <div class="m-2">
-    <app-user-info-bar />
-  </div>
+  @if (profileResource.isLoading()) {
+    <p>Cargando perfil...</p>
+  } @else if (profileResource.error()) {
+    <p>Error al cargar el perfil</p>
+  } @else if (profileResource.value(); as profile) {
+    <div class="m-2">
+      <app-user-info-bar  [profile]="profile" />
+    </div>
 
-  <div class="m-2 flex flex-col md:flex-row gap-2">
-    <app-user-links-techs class="w-full md:w-1/3 order-1 md:order-2"></app-user-links-techs>
-    <app-user-projects class="w-full md:w-2/3 order-2 md:order-1"></app-user-projects>
-  </div>
+    <div class="m-2 flex flex-col md:flex-row gap-2">
+      <app-user-links-techs class="w-full md:w-1/3 order-1 md:order-2" [links]="profile.links" > </app-user-links-techs>
+      <app-user-projects class="w-full md:w-2/3 order-2 md:order-1" [projects]="profile.projects" > </app-user-projects>
+    </div>
+  }
 </section>
+
