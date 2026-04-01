@@ -1,0 +1,98 @@
+<div class="fixed inset-0 bg-black/50 z-40 flex items-center justify-center" (click)="onClose()">
+  <div
+    class="bg-base-100 rounded-lg p-6 z-50 w-full max-w-md mx-4"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-bold">Crear proyecto</h3>
+      <button (click)="onClose()" class="btn btn-ghost btn-sm">✕</button>
+    </div>
+
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold h-12">Info about the project</h2>
+        <div>
+          <input
+            type="text"
+            placeholder="Project Name"
+            class="input input-bordered w-full"
+            formControlName="projectName"
+            [class.border-red-500]="projectName?.invalid && projectName?.touched"
+          />
+          <app-form-error-label [control]="projectName!" />
+        </div>
+
+        <div class="flex flex-col">
+          <textarea
+            class="textarea textarea-bordered"
+            placeholder="Description"
+            rows="6"
+            formControlName="descripcion"
+            [class.border-red-500]="projectName?.invalid && projectName?.touched"
+          ></textarea>
+          <app-form-error-label [control]="descripcion!" />
+        </div>
+      </div>
+
+      <!-- Input de imagen -->
+      <div class="flex flex-col gap-1 mt-3">
+        <label class="text-sm font-medium">Image of the project</label>
+
+        <input
+          type="file"
+          accept="image/png, image/jpeg, image/webp"
+          class="file-input file-input-bordered w-full"
+          [class.border-red-500]="!selectedFile() && !fileVerifier()"
+          (change)="onFileChange($event)"
+        />
+
+        <!-- Preview -->
+        @if (previewUrl()) {
+          <img [src]="previewUrl()" alt="Preview" class="mt-2 rounded-lg h-40 object-cover" />
+        }
+      </div>
+
+      <!-- Select de tipo de tecnologías -->
+      <div class="flex flex-col gap-1 mt-3">
+        <div class="flex justify-between">
+          <label class="text-sm font-medium">Technologies of the project</label>
+          <p class="text-sm font-medium text-gray-500 hover:cursor-pointer" (click)="cleanTechnologies()">Clean all Techs</p>
+        </div>
+
+        <select
+          class="select select-bordered w-full"
+          formControlName="technologyCat"
+          [class.border-red-500]="technologyCat?.invalid && technologyCat?.touched"
+        >
+          <option value="" disabled>Select a type of technology</option>
+          @for (techCat of techCategoryResource.value(); track techCat.id) {
+            <option [value]="techCat.id">{{ techCat.techCategoryName }}</option>
+          }
+        </select>
+        <app-form-error-label [control]="technologyCat!" />
+      </div>
+
+      <!-- Select de tecnologías -->
+      <div class="grid grid-cols-4 gap-1 mt-3">
+        @for (technology of technologiesForm(); track technology.id) {
+          <button
+            class="btn"
+            [class.btn-secondary]="projectForm.value.technologyIds?.includes(technology.id)"
+            type="button"
+            (click)="onClickTechnology(technology.id)"
+          >
+            <img [src]="technology.imgURL" [alt]="technology.techName" class="size-[2.2em]" />
+          </button>
+        }
+      </div>
+
+      <button class="btn btn-secondary mt-2" type="submit">
+        @if (isLoading()) {
+          <span class="loading loading-spinner loading-sm"></span>
+        } @else {
+          Guardar
+        }
+      </button>
+    </form>
+  </div>
+</div>

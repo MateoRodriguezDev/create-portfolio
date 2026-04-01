@@ -1,3 +1,6 @@
+import { Project } from "./project.interface";
+import { TechnologyElement } from "./technologies.interface";
+
 export interface BackendResponse {
   success: boolean;
   message: string;
@@ -17,23 +20,6 @@ export interface UserProfileResponse {
 export interface Link {
   url:         string;
   descripcion: string;
-}
-
-export interface Project {
-  projectName:  string;
-  imgURL:       string;
-  descripcion:  string | null;
-  technologies: TechnologyElement[];
-}
-
-export interface TechnologyElement {
-  technology: TechnologyTechnology;
-}
-
-export interface TechnologyTechnology {
-  techName:    string;
-  imgURL:      string;
-  descripcion: null;
 }
 
 export interface Title {

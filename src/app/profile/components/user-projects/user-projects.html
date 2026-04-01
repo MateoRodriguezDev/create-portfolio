@@ -1,8 +1,15 @@
 <section class="rounded-lg p-2 w-full glass">
+  <div class="flex flex-row items-center justify-between">
     <h2 class="text-xl text-base-content font-montserrat mb-2 mt-2">Projects:</h2>
-    <div class="flex flex-col gap-3">
-        @for (project of projects(); track $index) {
-          <app-project-card [project]="project" />
-        }
-    </div>
+    <button (click)="openModal()" class="btn glass btn-sm m-2">+</button>
+  </div>
+  <div class="flex flex-col gap-3">
+    @for (project of projects(); track $index) {
+      <app-project-card [project]="project" />
+    }
+  </div>
 </section>
+
+@if (isModalOpen()) {
+  <app-create-project-modal (close)="closeModal()" />
+}
