@@ -1,54 +1,57 @@
-<section class="rounded-lg p-2 w-full glass">
+<section class="rounded-sm p-2 pl-3 w-full steam-glass">
   <div class="mb-8">
-    <h2 class="text-xl text-base-content font-montserrat mb-2 mt-2">Technologies:</h2>
-    <div class="grid grid-cols-4 gap-2">
+    <h2 class="text-[13px] text-gray-400 font-montserrat mb-2 mt-2 uppercase tracking-widest">I work with:</h2>
+    <div class="flex flex-wrap gap-2">
       <img
         src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-        class="w-11"
+        class="w-9 transition-transform hover:scale-110"
         alt="javascript logo"
       />
       <img
         src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
-        class="w-11"
+        class="w-9 transition-transform hover:scale-110"
         alt="typescript logo"
       />
       <img
         src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-        class="w-11"
+        class="w-9 transition-transform hover:scale-110"
         alt="react logo"
       />
       <img
         src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-        class="w-11"
+        class="w-9 transition-transform hover:scale-110"
         alt="nodejs logo"
       />
       <img
         src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg"
-        class="w-11"
+        class="w-9 transition-transform hover:scale-110"
         alt="nestjs logo"
       />
       <img
         src="https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/angular/angular-original.svg"
-        class="w-11"
+        class="w-9 transition-transform hover:scale-110"
         alt="nestjs logo"
       />
       <img
         src="https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/docker/docker-original.svg"
-        class="w-11"
+        class="w-9 transition-transform hover:scale-110"
         alt="nestjs logo"
       />
     </div>
   </div>
 
   <div>
-    <h2 class="text-xl text-base-content font-montserrat mb-2">My Links:</h2>
-    <div class="flex flex-col gap-2">
+    <h2 class="text-[13px] text-gray-400 font-montserrat mb-2 mt-2 uppercase tracking-widest">My Links:</h2>
+    <div class="flex flex-col">
       @for (link of links(); track $index) {
         <a
-        class="text-md hover:cursor-pointer hover:text-white text-base-content font-montserrat"
+        class=" text-[15px] font-montserrat text-gray-300 border-b border-white/5 p-1 py-2  hover:cursor-pointer hover:text-blue-400 transition-all flex justify-between items-center"
         [href]="link.url"
         target="_blank"
-        >{{ link.descripcion }}</a
+        >
+        <span>{{ link.descripcion }}</span>
+        <span class="text-gray-600 text-[12px]">↗</span>
+        </a
       >
       }
     </div>

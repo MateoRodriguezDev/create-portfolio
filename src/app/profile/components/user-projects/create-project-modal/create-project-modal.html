@@ -1,6 +1,6 @@
 <div class="fixed inset-0 bg-black/50 z-40 flex items-center justify-center" (click)="onClose()">
   <div
-    class="bg-base-100 rounded-lg p-6 z-50 w-full max-w-md mx-4"
+    class="bg-base-100 rounded-sm p-6 z-50 w-full max-w-md mx-4"
     (click)="$event.stopPropagation()"
   >
     <div class="flex justify-between items-center mb-4">
@@ -48,7 +48,7 @@
 
         <!-- Preview -->
         @if (previewUrl()) {
-          <img [src]="previewUrl()" alt="Preview" class="mt-2 rounded-lg h-40 object-cover" />
+          <img [src]="previewUrl()" alt="Preview" class="mt-2 rounded-sm h-40 object-cover" />
         }
       </div>
 

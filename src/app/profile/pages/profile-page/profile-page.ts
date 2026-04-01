@@ -4,7 +4,6 @@ import { UserLinksTechs } from '../../components/user-links-techs/user-links-tec
 import { UserProjects } from '../../components/user-projects/user-projects';
 import { ProfileService } from '../../services/profile.service';
 import { firstValueFrom } from 'rxjs';
-import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -15,6 +14,7 @@ import { ProjectService } from '../../services/project.service';
 export class ProfilePage {
 
 _profileService = inject(ProfileService);
+
 
 profileResource = resource({
     loader: () => firstValueFrom(this._profileService.getUserProfile()),

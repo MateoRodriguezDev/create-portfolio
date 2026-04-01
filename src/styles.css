@@ -3,14 +3,30 @@
   themes: light --default, dark --prefersdark, cupcake, retro, autumn, lofi;
 }
 
-@font-face {  
+@font-face {
 
 font-family: Montserrat;
 
-src: url("../public/assets/fonts/montserrat/Montserrat-Medium.ttf");
+src: url("https://community.fastly.steamstatic.com/public/shared/fonts/MotivaSans-Regular.ttf?v=4.015");
 }
 
-@theme {  
+@theme {
 
 --font-montserrat: "Montserrat", "sans-serif";
+}
+
+.steam-glass {
+  background-color: #101214;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 3px;
+}
+
+.text-color {
+  color: #ebebeb
+}
+
+.header-padding {
+  padding: 24px 12px 0 24px;
 }
