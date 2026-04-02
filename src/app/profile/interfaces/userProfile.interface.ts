@@ -1,3 +1,4 @@
+import { Link } from "./link.interface";
 import { Project } from "./project.interface";
 import { TechnologyElement } from "./technologies.interface";
 
@@ -15,11 +16,6 @@ export interface UserProfileResponse {
   title:             Title;
   links:             Link[];
   projects:          Project[];
-}
-
-export interface Link {
-  url:         string;
-  descripcion: string;
 }
 
 export interface Title {

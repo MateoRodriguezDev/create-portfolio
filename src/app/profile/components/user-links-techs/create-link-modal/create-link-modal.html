@@ -1,0 +1,45 @@
+<div class="fixed inset-0 bg-black/50 z-40 flex items-center justify-center" (click)="onClose()">
+  <div
+    class="bg-base-100 rounded-sm p-6 z-50 w-full max-w-md mx-4"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-bold">Create a link</h3>
+      <button (click)="onClose()" class="btn btn-ghost btn-sm">✕</button>
+    </div>
+
+    <form [formGroup]="linkForm" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold h-12 m-5">Where do you want to send people to know you</h2>
+        <div>
+          <input
+            type="text"
+            placeholder="GitHub"
+            class="input input-bordered w-full"
+            formControlName="descripcion"
+            [class.border-red-500]="descripcion?.invalid && descripcion?.touched"
+          />
+          <app-form-error-label [control]="descripcion!" />
+        </div>
+
+        <div>
+          <input
+            type="text"
+            placeholder="https://github.com/UserExample"
+            class="input input-bordered w-full"
+            formControlName="url"
+            [class.border-red-500]="url?.invalid && url?.touched"
+          />
+          <app-form-error-label [control]="url!" />
+        </div>
+      </div>
+      <button class="btn btn-secondary mt-2" type="submit">
+        @if (isLoading()) {
+          <span class="loading loading-spinner loading-sm"></span>
+        } @else {
+          Guardar
+        }
+      </button>
+    </form>
+  </div>
+</div>
