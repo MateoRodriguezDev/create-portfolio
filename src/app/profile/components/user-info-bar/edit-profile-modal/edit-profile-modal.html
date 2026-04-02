@@ -1,0 +1,85 @@
+<div class="fixed inset-0 bg-black/50 z-40 flex items-center justify-center" (click)="onClose()">
+  <div
+    class="bg-base-100 rounded-sm p-6 z-50 w-full max-w-md mx-4"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-bold">Your Profile</h3>
+      <button (click)="onClose()" class="btn btn-ghost btn-sm">✕</button>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-bold h-12 m-5">Edit Your Profile</h2>
+        <div>
+          <input
+            type="text"
+            placeholder="John Johnson"
+            class="input input-bordered w-full"
+            formControlName="fullName"
+            [class.border-red-500]="fullName?.invalid && fullName?.touched"
+          />
+          <app-form-error-label [control]="fullName!" />
+        </div>
+
+        <div>
+          <input
+            type="text"
+            placeholder="JohnGamer69"
+            class="input input-bordered w-full"
+            formControlName="userName"
+            [class.border-red-500]="userName?.invalid && userName?.touched"
+          />
+          <app-form-error-label [control]="userName!" />
+        </div>
+
+        <!-- Select de Titulo -->
+        <div class="flex flex-col gap-1 mt-3">
+          <div class="flex justify-between">
+            <label class="text-sm font-medium">Title of your Profile</label>
+          </div>
+
+          <select
+            class="select select-bordered w-full"
+            formControlName="titleId"
+            [class.border-red-500]="titleId?.invalid && titleId?.touched"
+          >
+            <option value="" disabled>Select a title</option>
+            @for (title of titleResource.value(); track title.id) {
+              <option [value]="title.id">{{ title.titleName }}</option>
+            }
+          </select>
+          <app-form-error-label [control]="titleId!" />
+        </div>
+
+        <!-- Select de imagen de perfil -->
+        <!-- Input de imagen -->
+      <div class="flex flex-col gap-1 mt-3">
+        <label class="text-sm font-medium">Image of the project</label>
+
+        <input
+          type="file"
+          accept="image/png, image/jpeg, image/webp"
+          class="file-input file-input-bordered w-full"
+          [class.border-red-500]="!selectedFile() && !fileVerifier()"
+          (change)="onFileChange($event)"
+        />
+
+        <!-- Preview -->
+        @if (previewUrl()) {
+          <img [src]="previewUrl()" alt="Preview" class="mt-2 rounded-sm h-40 object-cover" />
+        }
+      </div>
+
+
+        <button class="btn btn-secondary mt-2" type="submit">
+          @if (isLoading()) {
+            <span class="loading loading-spinner loading-sm"></span>
+          } @else {
+            Guardar
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

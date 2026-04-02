@@ -5,7 +5,7 @@
     <p>Error al cargar el perfil</p>
   } @else if (profileResource.value(); as profile) {
     <div class="mb-15">
-      <app-user-info-bar  [profile]="profile" />
+      <app-user-info-bar (profileUpdated)="profileResource.reload()" [profile]="profile" />
     </div>
 
     <div class="flex flex-col md:flex-row gap-2">
