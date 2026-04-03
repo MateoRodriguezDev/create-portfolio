@@ -28,6 +28,7 @@ export class ProfileService {
       .pipe(
         map(response => response.result),
         tap(profile => {
+          console.log(profile)
           this._projectService.projects.set(profile.projects)
           this._linkService.links.set(profile.links)
           this.editableProfile().userName = profile.userName

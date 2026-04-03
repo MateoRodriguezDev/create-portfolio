@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { Project } from '../../../interfaces/project.interface';
 import { ProjectService } from '../../../services/project.service';
 import { StorageService } from '../../../services/firebase.service';
@@ -12,15 +21,24 @@ import { StorageService } from '../../../services/firebase.service';
 export class ProjectCard {
   project = input.required<Project>();
 
+  constructor() {
+    effect(() => {
+      const imgPath = this.project().imgURL;
+      this._storageService.getImageUrl(imgPath).then((url) => this.imgUrl.set(url));
+    });
+  }
+
+  editing = output<Project>();
+
   _projectService = inject(ProjectService);
   _storageService = inject(StorageService);
 
   imgUrl = signal<string>('');
 
-ngOnInit() {
-  this._storageService.getImageUrl(this.project().imgURL)
-    .then(url => this.imgUrl.set(url));
-}
+  //Envío la información del proyecto que se esta por editar
+  onEditing() {
+    this.editing.emit(this.project());
+  }
 
   deleteProject(id: number) {
     this._projectService.deleteProject(id).subscribe({

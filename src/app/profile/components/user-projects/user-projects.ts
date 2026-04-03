@@ -15,13 +15,20 @@ export class UserProjects {
   _projectService = inject(ProjectService)
 
   projects = computed(() => this._projectService.projects())
+  editingProject = signal<Project | undefined>(undefined)
 
   isModalOpen = signal(false);
+
+  setEditingProject(project: Project) {
+    this.editingProject.set(project)
+    this.openModal()
+  }
 
   openModal() {
     this.isModalOpen.set(true);
   }
   closeModal() {
+    this.editingProject.set(undefined)
     this.isModalOpen.set(false);
   }
 }

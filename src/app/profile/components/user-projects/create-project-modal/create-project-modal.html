@@ -4,7 +4,7 @@
     (click)="$event.stopPropagation()"
   >
     <div class="flex justify-between items-center mb-4">
-      <h3 class="text-lg font-bold">Create Project</h3>
+      <h3 class="text-lg font-bold">{{ isEditing() ? 'Edit Project' : 'Create Project'  }}</h3>
       <button (click)="onClose()" class="btn btn-ghost btn-sm">✕</button>
     </div>
 
@@ -50,6 +50,7 @@
         @if (previewUrl()) {
           <img [src]="previewUrl()" alt="Preview" class="mt-2 rounded-sm h-40 object-cover" />
         }
+
       </div>
 
       <!-- Select de tipo de tecnologías -->
@@ -62,14 +63,14 @@
         <select
           class="select select-bordered w-full"
           formControlName="technologyCat"
-          [class.border-red-500]="technologyCat?.invalid && technologyCat?.touched"
+          [class.border-red-500]="technologyIds?.invalid && technologyIds?.touched"
         >
           <option value="" disabled>Select a type of technology</option>
           @for (techCat of techCategoryResource.value(); track techCat.id) {
             <option [value]="techCat.id">{{ techCat.techCategoryName }}</option>
           }
         </select>
-        <app-form-error-label [control]="technologyCat!" />
+        <app-form-error-label [control]="technologyIds!" />
       </div>
 
       <!-- Select de tecnologías -->
