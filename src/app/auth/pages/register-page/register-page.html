@@ -1,1 +1,86 @@
-<p>register-page works!</p>,
+<section
+  class="flex flex-col items-center justify-center bg-linear-to-br from-teal-400 via-cyan-300 to-yellow-200 min-h-screen"
+>
+  <div class="w-full max-w-md flex flex-col items-start bg-white rounded-2xl p-10 shadow-xl mx-4">
+    <h1 class="font-montserrat text-gray-900 font-extrabold text-3xl tracking-tight">
+      Welcome!
+    </h1>
+    <p class="font-montserrat font-light text-xs text-gray-400 mt-1 mb-2 uppercase tracking-widest">
+      Register an account
+    </p>
+
+    <form action="" class="flex flex-col mt-5 gap-3 w-full">
+      <div class="flex flex-col gap-1">
+        <label for="email" class="text-gray-500 font-semibold text-xs tracking-wider uppercase"
+          >Email</label
+        >
+        <input
+          class="text-gray-700 bg-gray-50 p-3.5 rounded-xl w-full border border-gray-200"
+          type="text"
+          name="email"
+          id="email"
+          placeholder="you@example.com"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="password" class="text-gray-500 font-semibold text-xs tracking-wider uppercase"
+          >Password</label
+        >
+        <input
+          class="text-gray-700 bg-gray-50 p-3.5 rounded-xl w-full border border-gray-200"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="••••••••"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="confirmPassword" class="text-gray-500 font-semibold text-xs tracking-wider uppercase"
+          >Confirm Password</label
+        >
+        <input
+          class="text-gray-700 bg-gray-50 p-3.5 rounded-xl w-full border border-gray-200"
+          type="confirmPassword"
+          name="confirmPassword"
+          id="confirmPassword"
+          placeholder="••••••••"
+        />
+      </div>
+
+      <button
+        type="button"
+        class="w-full bg-gray-900 rounded-xl p-4 mt-2 text-white font-bold hover:cursor-pointer transition duration-150 hover:bg-gray-700 active:scale-[0.98]"
+      >
+        Register
+      </button>
+    </form>
+
+    <div class="divider text-slate-400 text-xs my-2">or continue with</div>
+
+    <button class="btn bg-white text-black border-[#e5e5e5] w-full">
+      <svg
+        aria-label="Google logo"
+        width="16"
+        height="16"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+      >
+        <g>
+          <path d="m0 0H512V512H0" fill="#fff"></path>
+          <path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path>
+          <path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path>
+          <path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path>
+          <path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path>
+        </g>
+      </svg>
+      Login with Google
+    </button>
+
+    <p class="text-xs text-gray-400 text-center w-full mt-6">
+      have an account?
+      <a routerLink="/auth/login" class="text-teal-500 hover:text-teal-600 font-semibold">Sign in</a>
+    </p>
+  </div>
+</section>
