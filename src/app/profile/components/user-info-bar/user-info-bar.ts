@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input, output, signal } fro
 import { UserProfileResponse } from '../../interfaces/userProfile.interface';
 import { StorageService } from '../../services/firebase.service';
 import { EditProfileModal } from './edit-profile-modal/edit-profile-modal';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-user-info-bar',
@@ -14,8 +15,8 @@ export class UserInfoBar {
 
   profileUpdated = output<void>();
 
-
   _storageService = inject(StorageService);
+  _authService = inject(AuthService);
 
   isModalOpen = signal(false);
   imgUrl = signal<string>('');
@@ -31,5 +32,9 @@ export class UserInfoBar {
     this._storageService
       .getImageUrl(this.profile().profilePictureURL)
       .then((url) => this.imgUrl.set(url));
+  }
+
+  signOut() {
+    this._authService.logout();
   }
 }

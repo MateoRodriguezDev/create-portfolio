@@ -4,6 +4,7 @@ import { UserLinksTechs } from '../../components/user-links-techs/user-links-tec
 import { UserProjects } from '../../components/user-projects/user-projects';
 import { ProfileService } from '../../services/profile.service';
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-profile-page',

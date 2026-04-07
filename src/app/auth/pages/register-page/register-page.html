@@ -2,14 +2,16 @@
   class="flex flex-col items-center justify-center bg-linear-to-br from-teal-400 via-cyan-300 to-yellow-200 min-h-screen"
 >
   <div class="w-full max-w-md flex flex-col items-start bg-white rounded-2xl p-10 shadow-xl mx-4">
-    <h1 class="font-montserrat text-gray-900 font-extrabold text-3xl tracking-tight">
-      Welcome!
-    </h1>
+    <h1 class="font-montserrat text-gray-900 font-extrabold text-3xl tracking-tight">Welcome!</h1>
     <p class="font-montserrat font-light text-xs text-gray-400 mt-1 mb-2 uppercase tracking-widest">
       Register an account
     </p>
 
-    <form action="" class="flex flex-col mt-5 gap-3 w-full">
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col mt-5 gap-3 w-full"
+    >
       <div class="flex flex-col gap-1">
         <label for="email" class="text-gray-500 font-semibold text-xs tracking-wider uppercase"
           >Email</label
@@ -19,8 +21,11 @@
           type="text"
           name="email"
           id="email"
+          formControlName="email"
           placeholder="you@example.com"
+          [class.border-red-500]="email?.invalid && email?.touched"
         />
+        <app-form-error-label [control]="email!" />
       </div>
 
       <div class="flex flex-col gap-1">
@@ -31,35 +36,51 @@
           class="text-gray-700 bg-gray-50 p-3.5 rounded-xl w-full border border-gray-200"
           type="password"
           name="password"
+          formControlName="password"
           id="password"
           placeholder="••••••••"
+          [class.border-red-500]="password?.invalid && password?.touched"
         />
+        <app-form-error-label [control]="password!" />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label for="confirmPassword" class="text-gray-500 font-semibold text-xs tracking-wider uppercase"
+        <label for="password2" class="text-gray-500 font-semibold text-xs tracking-wider uppercase"
           >Confirm Password</label
         >
         <input
           class="text-gray-700 bg-gray-50 p-3.5 rounded-xl w-full border border-gray-200"
-          type="confirmPassword"
-          name="confirmPassword"
-          id="confirmPassword"
+          type="password"
+          name="password2"
+          formControlName="password2"
+          id="password2"
           placeholder="••••••••"
+          [class.border-red-500]="password2?.invalid && password2?.touched"
         />
+        <app-form-error-label [control]="password2!" />
+        @if (
+          registerForm.errors?.['passwordsNotEqual'] && registerForm.controls['password2'].touched
+        ) {
+          <span class="text-red-500 text-xs">Las contraseñas no coinciden</span>
+        }
       </div>
 
       <button
-        type="button"
+        type="submit"
+        [disabled]="isLoading()"
         class="w-full bg-gray-900 rounded-xl p-4 mt-2 text-white font-bold hover:cursor-pointer transition duration-150 hover:bg-gray-700 active:scale-[0.98]"
       >
-        Register
+        @if (isLoading()) {
+          <span class="loading"></span>
+        } @else {
+          Register
+        }
       </button>
     </form>
 
     <div class="divider text-slate-400 text-xs my-2">or continue with</div>
 
-    <button class="btn bg-white text-black border-[#e5e5e5] w-full">
+    <button class="btn bg-white text-black border-[#e5e5e5] w-full" (click)="onGoogleLogin()">
       <svg
         aria-label="Google logo"
         width="16"
@@ -75,12 +96,15 @@
           <path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path>
         </g>
       </svg>
-      Login with Google
+
+          Login with Google
     </button>
 
     <p class="text-xs text-gray-400 text-center w-full mt-6">
       have an account?
-      <a routerLink="/auth/login" class="text-teal-500 hover:text-teal-600 font-semibold">Sign in</a>
+      <a routerLink="/auth/login" class="text-teal-500 hover:text-teal-600 font-semibold"
+        >Sign in</a
+      >
     </p>
   </div>
 </section>

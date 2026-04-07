@@ -20,5 +20,6 @@ export const appConfig: ApplicationConfig = {
         authInterceptor,
       ])
     ), provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), provideAuth(() => getAuth()), provideStorage(() => getStorage()),
+
   ]
 };
