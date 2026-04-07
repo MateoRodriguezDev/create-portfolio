@@ -22,9 +22,9 @@ export class ProfileService {
   _projectService = inject(ProjectService)
   _linkService = inject(LinkService)
 
-  getUserProfile(): Observable<UserProfileResponse> {
+  getUserProfile(id: number): Observable<UserProfileResponse> {
     return this.http
-      .get<BackendResponse>(`${baseUrl}/user-profile/fullProfile/3`)
+      .get<BackendResponse>(`${baseUrl}/user-profile/fullProfile/${id}`)
       .pipe(
         map(response => response.result),
         tap(profile => {

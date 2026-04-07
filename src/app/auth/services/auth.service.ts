@@ -16,6 +16,7 @@ import { environment } from '../../../environments/enviroment';
 import { BackendResponse } from '../../profile/interfaces/userProfile.interface';
 import { FirebaseError } from '@angular/fire/app';
 import { Router } from '@angular/router';
+import { ProfileService } from '../../profile/services/profile.service';
 
 const baseUrl = environment.baseUrl;
 
@@ -27,7 +28,8 @@ export class AuthService {
 
   constructor(
     private auth: Auth,
-    private route: Router
+    private route: Router,
+    private profileService : ProfileService
   ) {
   }
 
@@ -108,6 +110,10 @@ export class AuthService {
   async logout() {
     await signOut(this.auth);
     this.redirectTo('/auth/login')
+  }
+
+  async verifyUser(uid: string) {
+
   }
 
   redirectTo(path: string) {
