@@ -6,6 +6,9 @@ export class StorageService {
   private storage = inject(Storage);
 
   getImageUrl(path: string): Promise<string> {
+
+    if(path === '') return Promise.resolve('/assets/images/NoProfile.png')
+
     const imageRef = ref(this.storage, path);
     return getDownloadURL(imageRef);
   }

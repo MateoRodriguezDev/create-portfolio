@@ -6,12 +6,12 @@ import { NotFoundPage } from '../shared/pages/not-found-page/not-found-page';
 export const profileRoutes: Routes = [
 
     {
-        path: '', 
+        path: '',
         component: ProfileLayout,
         children: [
 
             {
-                path: ':userId',
+                path: ':profileId',
                 component: ProfilePage
             },
             {

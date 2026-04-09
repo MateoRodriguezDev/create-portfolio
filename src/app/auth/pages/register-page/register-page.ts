@@ -8,7 +8,7 @@ import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-register-page',
-  imports: [RouterLink, ReactiveFormsModule, FormErrorLabel, JsonPipe],
+  imports: [RouterLink, ReactiveFormsModule, FormErrorLabel],
   templateUrl: './register-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

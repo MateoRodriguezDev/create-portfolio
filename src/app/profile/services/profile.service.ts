@@ -22,9 +22,9 @@ export class ProfileService {
   _projectService = inject(ProjectService)
   _linkService = inject(LinkService)
 
-  getUserProfile(id: number): Observable<UserProfileResponse> {
+  getUserProfile(profileId: number): Observable<UserProfileResponse> {
     return this.http
-      .get<BackendResponse>(`${baseUrl}/user-profile/fullProfile/${id}`)
+      .get<BackendResponse>(`${baseUrl}/user-profile/fullProfile/${profileId}`)
       .pipe(
         map(response => response.result),
         tap(profile => {
@@ -32,7 +32,7 @@ export class ProfileService {
           this._projectService.projects.set(profile.projects)
           this._linkService.links.set(profile.links)
           this.editableProfile().userName = profile.userName
-          this.editableProfile().titleId = profile.title.id
+          this.editableProfile().titleId = profile.title?.id ?? 0
           this.editableProfile().profilePictureURL = profile.profilePictureURL,
           this.editableProfile().fullName = profile.fullName
         })

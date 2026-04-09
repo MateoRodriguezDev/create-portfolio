@@ -15,7 +15,7 @@ export interface UserProfileResponse {
   userName:          string;
   fullName: string
   profilePictureURL: string;
-  title:             Title;
+  title:             Title | null;
   links:             Link[];
   projects:          Project[];
 }

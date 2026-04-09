@@ -11,12 +11,13 @@ import {
   validatePassword,
   getAuth,
 } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
 import { environment } from '../../../environments/enviroment';
 import { BackendResponse } from '../../profile/interfaces/userProfile.interface';
 import { FirebaseError } from '@angular/fire/app';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../profile/services/profile.service';
+import { LoginResponse } from '../interfaces/login.interface';
 
 const baseUrl = environment.baseUrl;
 
@@ -29,7 +30,9 @@ export class AuthService {
   constructor(
     private auth: Auth,
     private route: Router,
-    private profileService : ProfileService
+    private profileService : ProfileService,
+    private http: HttpClient
+
   ) {
   }
 
@@ -40,9 +43,12 @@ export class AuthService {
       const provider = new GoogleAuthProvider();
       const authResponse = await signInWithPopup(this.auth, provider);
       const token = await authResponse.user.getIdToken();
-      this.isLoading.set(false);
 
-      this.redirectTo('/')
+
+      //Envío el token al back
+      const profileId = (await firstValueFrom(this.verifyUser(token))).profileId
+      this.isLoading.set(false);
+      this.redirectTo(`profile/${profileId}`)
 
 
     } catch (error) {
@@ -60,8 +66,13 @@ export class AuthService {
 
       const authResponse = await signInWithEmailAndPassword(this.auth, email, password);
       const token = await authResponse.user.getIdToken();
+
+      //Envío el token al back
+      const profileId = (await firstValueFrom(this.verifyUser(token))).profileId
       this.isLoading.set(false);
-      this.redirectTo('/')
+      this.redirectTo(`profile/${profileId}`)
+
+
     } catch (error) {
       this.isLoading.set(false);
       if (error instanceof FirebaseError) {
@@ -80,8 +91,13 @@ export class AuthService {
 
       const authResponse = await createUserWithEmailAndPassword(this.auth, email, password);
       const token = await authResponse.user.getIdToken();
+
+      //Envío el token al back
+      const profileId = (await firstValueFrom(this.verifyUser(token))).profileId
       this.isLoading.set(false);
-      this.redirectTo('/')
+      this.redirectTo(`profile/${profileId}`)
+
+
     } catch (error) {
       this.isLoading.set(false);
       if (error instanceof FirebaseError) {
@@ -112,8 +128,12 @@ export class AuthService {
     this.redirectTo('/auth/login')
   }
 
-  async verifyUser(uid: string) {
 
+  //Envío el token de firebase al back para verificar que sea usuario de mi aplicación
+  verifyUser(uid: string): Observable<LoginResponse> {
+     return this.http
+    .post<BackendResponse>(`${baseUrl}/auth/login`, { UIDtoken: uid })
+    .pipe(map(response => response.result));
   }
 
   redirectTo(path: string) {

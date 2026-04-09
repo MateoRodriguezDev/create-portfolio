@@ -1,5 +1,5 @@
 export interface Title {
-  id: number;
+  id: number | null;
   titleName:    string;
   descripcion:  null;
   titleIconURL: null;
