@@ -1,18 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/enviroment';
 import { UserProfileResponse, BackendResponse, EditProfile } from '../interfaces/userProfile.interface';
 import { ProjectService } from './project.service';
 import { LinkService } from './link.service';
+import { Router } from '@angular/router';
 
 const baseUrl = environment.baseUrl;
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
   private http = inject(HttpClient);
+  private router = inject(Router)
 
-  actualUserProfileId = Number(localStorage.getItem('profileId'))
+  actualUserProfileId = signal(Number(localStorage.getItem('profileId')))
 
   editableProfile = signal<EditProfile>({
     userName: '',
@@ -30,15 +32,19 @@ export class ProfileService {
       .pipe(
         map(response => response.result),
         tap(profile => {
-          console.log(profile)
-          console.log(this.actualUserProfileId)
+          console.log(this.actualUserProfileId())
           this._projectService.projects.set(profile.projects)
           this._linkService.links.set(profile.links)
           this.editableProfile().userName = profile.userName
           this.editableProfile().titleId = profile.title?.id ?? 0
           this.editableProfile().profilePictureURL = profile.profilePictureURL,
           this.editableProfile().fullName = profile.fullName
-        })
+        }),
+        catchError(error => {
+        console.error(error);
+        this.router.navigate(['/profile/notFound'])
+        return throwError(() => new Error(error.message));
+      })
       );
   }
 

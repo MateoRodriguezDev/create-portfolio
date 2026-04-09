@@ -2,36 +2,35 @@ import { Routes } from '@angular/router';
 import { ProfileLayout } from './layout/profile-layout/profile-layout';
 import { ProfilePage } from './pages/profile-page/profile-page';
 import { NotFoundPage } from '../shared/pages/not-found-page/not-found-page';
+import { ProfileRedirectGuard } from './guards/profileRedirect.guard';
 
 export const profileRoutes: Routes = [
-
-    {
+  {
+    path: '',
+    component: ProfileLayout,
+    children: [
+      {
         path: '',
-        component: ProfileLayout,
-        children: [
+        canActivate: [ProfileRedirectGuard],
+        component: ProfilePage,
+      },
 
-            {
-                path: ':profileId',
-                component: ProfilePage
-            },
-            {
-                path: '**',
-                component: NotFoundPage
-            },
+      {
+        path: 'notFound',
+        component: NotFoundPage,
+      },
 
+      {
+        path: ':profileId',
+        component: ProfilePage,
+      },
+    ],
+  },
 
-        ]
-    },
+  {
+    path: '**',
+    redirectTo: '',
+  },
+];
 
-    {
-        path: '**',
-        redirectTo: ''
-    }
-
-]
-
-
-
-
-
-export default profileRoutes
+export default profileRoutes;

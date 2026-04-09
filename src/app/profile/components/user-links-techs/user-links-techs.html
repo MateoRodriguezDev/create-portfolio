@@ -47,7 +47,7 @@
       <h2 class="text-[13px] text-gray-400 font-montserrat mb-2 mt-2 uppercase tracking-widest">
         My Links:
       </h2>
-      @if (_profileService.actualUserProfileId === +profileId()) {
+      @if (_profileService.actualUserProfileId() === +profileId()) {
         <button
           class="btn btn-sm opacity-40 hover:opacity-100 transition-opacity"
           type="button"
@@ -81,7 +81,7 @@
       }
 
       <div class="flex flex-row items-center justify-between w-full">
-        @if (_profileService.actualUserProfileId === +profileId()) {
+        @if (_profileService.actualUserProfileId() === +profileId()) {
           <button (click)="openModal()" class="btn w-full mt-1">+</button>
         }
       </div>
@@ -89,6 +89,6 @@
   </div>
 </section>
 
-@if (isModalOpen() && _profileService.actualUserProfileId === +profileId()) {
+@if (isModalOpen() && _profileService.actualUserProfileId() === +profileId()) {
   <app-create-link-modal (close)="closeModal()" />
 }

@@ -9,7 +9,7 @@
     <div class="flex flex-col gap-2 items-start mt-1">
       <h2 class="text-xl md:text-2xl font-montserrat text-color font-extralight">
         {{ profile().userName }}
-        @if (_profileService.actualUserProfileId === +profileId()) {
+        @if (_profileService.actualUserProfileId() === +profileId()) {
           <span (click)="openModal()" class="text-lg md:text-xl hover:cursor-pointer">🖉</span>
         }
       </h2>
@@ -34,6 +34,6 @@
   </div>
 </section>
 
-@if (isModalOpen() && _profileService.actualUserProfileId === +profileId()) {
+@if (isModalOpen() && _profileService.actualUserProfileId() === +profileId()) {
   <app-edit-profile-modal (close)="closeModal()" (updated)="profileUpdated.emit()" />
 }
