@@ -12,6 +12,7 @@ export interface BackendResponse {
 }
 
 export interface UserProfileResponse {
+  id?: number;
   userName:          string;
   fullName: string
   profilePictureURL: string;

@@ -47,6 +47,7 @@ export class AuthService {
 
       //Envío el token al back
       const profileId = (await firstValueFrom(this.verifyUser(token))).profileId
+      localStorage.setItem('profileId', String(profileId))
       this.isLoading.set(false);
       this.redirectTo(`profile/${profileId}`)
 
@@ -69,6 +70,7 @@ export class AuthService {
 
       //Envío el token al back
       const profileId = (await firstValueFrom(this.verifyUser(token))).profileId
+      localStorage.setItem('profileId', String(profileId))
       this.isLoading.set(false);
       this.redirectTo(`profile/${profileId}`)
 
@@ -94,6 +96,7 @@ export class AuthService {
 
       //Envío el token al back
       const profileId = (await firstValueFrom(this.verifyUser(token))).profileId
+      localStorage.setItem('profileId', String(profileId))
       this.isLoading.set(false);
       this.redirectTo(`profile/${profileId}`)
 
@@ -125,6 +128,7 @@ export class AuthService {
 
   async logout() {
     await signOut(this.auth);
+    localStorage.removeItem('profileId')
     this.redirectTo('/auth/login')
   }
 

@@ -1,5 +1,4 @@
 <section class="flex flex-col md:flex-row items-center gap-4">
-
   <div class="flex w-full md:w-2/3 gap-4">
     <img
       [src]="imgUrl()"
@@ -10,24 +9,31 @@
     <div class="flex flex-col gap-2 items-start mt-1">
       <h2 class="text-xl md:text-2xl font-montserrat text-color font-extralight">
         {{ profile().userName }}
-        <span (click)="openModal()" class="text-lg md:text-xl hover:cursor-pointer">🖉</span>
+        @if (_profileService.actualUserProfileId === +profileId()) {
+          <span (click)="openModal()" class="text-lg md:text-xl hover:cursor-pointer">🖉</span>
+        }
       </h2>
-      <button type="button" class="btn" (click)="signOut()">Logout</button>
-
+      @if (true) {
+        <button type="button" class="btn" (click)="signOut()">Logout</button>
+      }
     </div>
   </div>
 
   <div class="flex flex-col gap-4 w-full md:w-1/3">
     <div class="flex items-center gap-4 justify-start steam-glass rounded-[3px] p-3 w-full">
-      <img class="w-10 md:w-12" [src]="profile().title?.titleIconURL ?? 'https://www.svgrepo.com/show/346881/file-unknow.svg'" />
+      <img
+        class="w-10 md:w-12"
+        [src]="
+          profile().title?.titleIconURL ?? 'https://www.svgrepo.com/show/346881/file-unknow.svg'
+        "
+      />
       <h2 class="text-color font-montserrat tracking-widest text-sm md:text-base">
-        {{ profile().title?.titleName ?? 'No Title Selected Yet'}}
+        {{ profile().title?.titleName ?? 'No Title Selected Yet' }}
       </h2>
     </div>
   </div>
-
 </section>
 
-@if (isModalOpen()) {
+@if (isModalOpen() && _profileService.actualUserProfileId === +profileId()) {
   <app-edit-profile-modal (close)="closeModal()" (updated)="profileUpdated.emit()" />
 }

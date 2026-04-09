@@ -10,7 +10,7 @@ import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [UserInfoBar, UserLinksTechs, UserProjects, JsonPipe],
+  imports: [UserInfoBar, UserLinksTechs, UserProjects],
   templateUrl: './profile-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

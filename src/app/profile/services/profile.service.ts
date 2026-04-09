@@ -12,6 +12,8 @@ const baseUrl = environment.baseUrl;
 export class ProfileService {
   private http = inject(HttpClient);
 
+  actualUserProfileId = Number(localStorage.getItem('profileId'))
+
   editableProfile = signal<EditProfile>({
     userName: '',
     titleId: 0,
@@ -29,6 +31,7 @@ export class ProfileService {
         map(response => response.result),
         tap(profile => {
           console.log(profile)
+          console.log(this.actualUserProfileId)
           this._projectService.projects.set(profile.projects)
           this._linkService.links.set(profile.links)
           this.editableProfile().userName = profile.userName

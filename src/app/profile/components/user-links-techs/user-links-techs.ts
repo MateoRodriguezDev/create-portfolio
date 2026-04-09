@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, signal } f
 import { CreateLinkModal } from './create-link-modal/create-link-modal';
 import { Link } from '../../interfaces/link.interface';
 import { LinkService } from '../../services/link.service';
+import { ActivatedRoute } from '@angular/router';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-user-links-techs',
@@ -11,7 +13,12 @@ import { LinkService } from '../../services/link.service';
 })
 export class UserLinksTechs {
   _linkService = inject(LinkService);
+  _profileService = inject(ProfileService);
 
+
+  private route = inject(ActivatedRoute);
+
+  profileId = signal<string>(this.route.snapshot.params['profileId']);
   isDeleting = signal<boolean>(false);
   isModalOpen = signal(false);
 

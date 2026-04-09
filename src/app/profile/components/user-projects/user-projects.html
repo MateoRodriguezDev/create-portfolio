@@ -6,12 +6,15 @@
     }
   </div>
   <div class="flex flex-row items-center justify-between w-full">
-    <button (click)="openModal()" class="btn w-full mt-1">+</button>
+    @if (_profileService.actualUserProfileId === +profileId()) {
+      <button (click)="openModal()" class="btn w-full mt-1">+</button>
+    }
   </div>
 </section>
 
-@if (isModalOpen()) {
+@if (isModalOpen() && _profileService.actualUserProfileId === +profileId()) {
     <app-create-project-modal (close)="closeModal()" [editingProject]="editingProject()" />
 
 
 }
+

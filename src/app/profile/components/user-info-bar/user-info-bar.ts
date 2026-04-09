@@ -3,6 +3,8 @@ import { UserProfileResponse } from '../../interfaces/userProfile.interface';
 import { StorageService } from '../../services/firebase.service';
 import { EditProfileModal } from './edit-profile-modal/edit-profile-modal';
 import { AuthService } from '../../../auth/services/auth.service';
+import { ProfileService } from '../../services/profile.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-info-bar',
@@ -16,7 +18,11 @@ export class UserInfoBar {
   profileUpdated = output<void>();
 
   _storageService = inject(StorageService);
+  _profileService = inject(ProfileService);
   _authService = inject(AuthService);
+
+  private route = inject(ActivatedRoute);
+  profileId = signal<string>(this.route.snapshot.params['profileId']);
 
   isModalOpen = signal(false);
   imgUrl = signal<string>('');
