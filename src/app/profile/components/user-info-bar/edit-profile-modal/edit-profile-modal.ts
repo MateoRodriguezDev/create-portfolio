@@ -46,7 +46,6 @@ export class EditProfileModal {
     fullName: [this.previousProfile().fullName || '', Validators.required],
     userName: [this.previousProfile().userName || '', Validators.required],
     titleId: [this.previousProfile().titleId || 1, [Validators.required, Validators.min(1)]],
-    userId: [2],
   });
 
   //Logica para la subida de archivo
@@ -76,7 +75,6 @@ export class EditProfileModal {
     formData.append('fullName', this.profileForm.value.fullName!);
     formData.append('userName', this.profileForm.value.userName!);
     formData.append('titleId', String(this.profileForm.value.titleId!));
-    formData.append('userId', String(this.profileForm.value.userId!));
 
     //Si se edito la imagen de perfil se agrega al formulario
     if (this.selectedFile()) {

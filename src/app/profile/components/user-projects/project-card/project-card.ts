@@ -11,6 +11,8 @@ import {
 import { Project } from '../../../interfaces/project.interface';
 import { ProjectService } from '../../../services/project.service';
 import { StorageService } from '../../../services/firebase.service';
+import { ProfileService } from '../../../services/profile.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project-card',
@@ -20,6 +22,10 @@ import { StorageService } from '../../../services/firebase.service';
 })
 export class ProjectCard {
   project = input.required<Project>();
+  _profileService = inject(ProfileService)
+
+  private route = inject(ActivatedRoute);
+  profileId = signal<string>(this.route.snapshot.params['profileId']);
 
   constructor() {
     effect(() => {

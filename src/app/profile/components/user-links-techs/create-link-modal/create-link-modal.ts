@@ -18,13 +18,14 @@ export class CreateLinkModal {
 
   _linkService = inject(LinkService)
 
-  isLoading = signal<boolean>(false);
+  isLoading = signal<boolean>(false)
+  userProfileId = localStorage.getItem('profileId');
 
     //Formulario del modal
   linkForm = this.fb.group({
     url: ['', Validators.required],
     descripcion: ['', Validators.required],
-    userProfileId: [3]
+    userProfileId: [this.userProfileId]
   });
 
   onSubmit() {

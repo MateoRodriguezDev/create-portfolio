@@ -49,8 +49,11 @@ export class ProfileService {
   }
 
   editProfile(formData: any): Observable<EditProfile> {
+
+    const userProfileId = localStorage.getItem('profileId')
+
     return this.http
-      .patch<BackendResponse>(`${baseUrl}/user-profile/3`, formData)
+      .patch<BackendResponse>(`${baseUrl}/user-profile/${userProfileId}`, formData)
       .pipe(
         map(response => response.result),
         tap(profile => {

@@ -36,6 +36,7 @@ export class CreateProjectModal {
   previewUrl = signal<string | null>(null);
   technologiesForm = signal<Technology[]>([]);
   selectedTechnologies = signal<number[]>([]);
+  userProfileId = localStorage.getItem('profileId')
 
   _technologyService = inject(TechnologyService);
   _projectService = inject(ProjectService);
@@ -95,7 +96,6 @@ export class CreateProjectModal {
     descripcion: ['', Validators.required],
     technologyCat: [''],
     technologyIds: [[] as number[], Validators.required],
-    userProfileId: [3],
   });
 
   // Relleno el formulario cuando llega editingProject
@@ -143,7 +143,7 @@ export class CreateProjectModal {
     formData.append('projectName', this.projectForm.value.projectName!);
     formData.append('descripcion', this.projectForm.value.descripcion!);
     formData.append('technologyIds', JSON.stringify(this.projectForm.value.technologyIds!));
-    formData.append('userProfileId', String(this.projectForm.value.userProfileId));
+    formData.append('userProfileId', String(this.userProfileId));
     //Si se edito la imagen del proyecto se agrega al formulario
     if (this.selectedFile()) {
       formData.append('file', this.selectedFile()!);
