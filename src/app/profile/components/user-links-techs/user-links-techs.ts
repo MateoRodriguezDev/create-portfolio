@@ -4,6 +4,8 @@ import { Link } from '../../interfaces/link.interface';
 import { LinkService } from '../../services/link.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from '../../services/profile.service';
+import { TechnologyService } from '../../services/technology.service';
+import { Technology } from '../../interfaces/technologies.interface';
 
 @Component({
   selector: 'app-user-links-techs',
@@ -14,6 +16,7 @@ import { ProfileService } from '../../services/profile.service';
 export class UserLinksTechs {
   _linkService = inject(LinkService);
   _profileService = inject(ProfileService);
+  _techService = inject(TechnologyService);
 
 
   private route = inject(ActivatedRoute);
@@ -24,6 +27,7 @@ export class UserLinksTechs {
 
 
   links = computed(() => this._linkService.links());
+  technologies = computed<Technology[]>(() => this._techService.totalTechs().map((t) => t.technology));
 
 
   openModal() {

@@ -5,6 +5,7 @@ import { Project } from '../../interfaces/project.interface';
 import { ProjectService } from '../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from '../../services/profile.service';
+import { TechnologyElement } from '../../interfaces/technologies.interface';
 
 @Component({
   selector: 'app-user-projects',
@@ -21,6 +22,8 @@ export class UserProjects {
   profileId = signal<string>(this.route.snapshot.params['profileId']);
   projects = computed(() => this._projectService.projects());
   editingProject = signal<Project | undefined>(undefined);
+
+
 
   isModalOpen = signal(false);
 

@@ -3,10 +3,11 @@ import { UserInfoBar } from '../../components/user-info-bar/user-info-bar';
 import { UserLinksTechs } from '../../components/user-links-techs/user-links-techs';
 import { UserProjects } from '../../components/user-projects/user-projects';
 import { ProfileService } from '../../services/profile.service';
-import { firstValueFrom, tap } from 'rxjs';
+import { firstValueFrom, map, tap } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JsonPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-profile-page',
@@ -19,16 +20,24 @@ export class ProfilePage{
 
 
 _profileService = inject(ProfileService);
-private route = inject(ActivatedRoute)
-profileId = signal<string>(this.route.snapshot.params['profileId'])
+_authService = inject(AuthService)
+
+route = inject(ActivatedRoute);
+router = inject(Router)
+
+
+profileId = toSignal(
+  this.route.params.pipe(map(params => params['profileId']))
+);
 
 
 
 
 profileResource = resource({
-    loader: () => firstValueFrom(this._profileService.getUserProfile(+this.profileId()).pipe(
-      tap(profile => console.log('Profile:', profile)))),
-  });
+  params: () => this.profileId(),  // 👈 reacciona cuando profileId cambia
+  loader: ({ params: profileId }) =>
+    firstValueFrom(this._profileService.getUserProfile(+profileId))
+});
 
 
 

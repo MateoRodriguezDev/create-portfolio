@@ -4,6 +4,7 @@ export interface Project {
   id: number
   projectName:  string;
   imgURL:       string;
+  projectURL?:       string;
   descripcion:  string | null;
   technologies: TechnologyElement[];
 }

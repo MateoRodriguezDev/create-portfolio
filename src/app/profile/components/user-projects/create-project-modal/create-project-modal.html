@@ -22,6 +22,17 @@
           <app-form-error-label [control]="projectName!" />
         </div>
 
+        <div>
+          <input
+            type="text"
+            placeholder="https://github.com/UserExample/ProjectExample"
+            class="input input-bordered w-full"
+            formControlName="projectURL"
+            [class.border-red-500]="projectURL?.invalid && projectURL?.touched"
+          />
+          <app-form-error-label [control]="projectURL!" />
+        </div>
+
         <div class="flex flex-col">
           <textarea
             class="textarea textarea-bordered"

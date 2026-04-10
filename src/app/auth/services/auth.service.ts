@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { inject, Injectable, signal } from '@angular/core';
 import {
   Auth,
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
-  user,
+  authState,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   validatePassword,
@@ -16,25 +17,19 @@ import { environment } from '../../../environments/enviroment';
 import { BackendResponse } from '../../profile/interfaces/userProfile.interface';
 import { FirebaseError } from '@angular/fire/app';
 import { Router } from '@angular/router';
-import { ProfileService } from '../../profile/services/profile.service';
 import { LoginResponse } from '../interfaces/login.interface';
 
 const baseUrl = environment.baseUrl;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
-
   isLoading = signal(false);
 
-  constructor(
-    private auth: Auth,
-    private route: Router,
-    private profileService : ProfileService,
-    private http: HttpClient
+  private auth = inject(Auth);
+  private route = inject(Router);
+  private http = inject(HttpClient);
 
-  ) {
-  }
+  isLoggedIn = toSignal(authState(this.auth).pipe(map((user) => user !== null)));
 
   async loginWithGoogle() {
     try {
@@ -44,14 +39,11 @@ export class AuthService {
       const authResponse = await signInWithPopup(this.auth, provider);
       const token = await authResponse.user.getIdToken();
 
-
       //Envío el token al back
-      const profileId = (await firstValueFrom(this.verifyUser(token))).profileId
-      localStorage.setItem('profileId', String(profileId))
+      const profileId = (await firstValueFrom(this.verifyUser(token))).profileId;
+      localStorage.setItem('profileId', String(profileId));
       this.isLoading.set(false);
-      this.redirectTo(`profile/${profileId}`)
-
-
+      this.redirectTo(`profile/${profileId}`);
     } catch (error) {
       this.isLoading.set(false);
       if (error instanceof FirebaseError) {
@@ -69,12 +61,10 @@ export class AuthService {
       const token = await authResponse.user.getIdToken();
 
       //Envío el token al back
-      const profileId = (await firstValueFrom(this.verifyUser(token))).profileId
-      localStorage.setItem('profileId', String(profileId))
+      const profileId = (await firstValueFrom(this.verifyUser(token))).profileId;
+      localStorage.setItem('profileId', String(profileId));
       this.isLoading.set(false);
-      this.redirectTo(`profile/${profileId}`)
-
-
+      this.redirectTo(`profile/${profileId}`);
     } catch (error) {
       this.isLoading.set(false);
       if (error instanceof FirebaseError) {
@@ -89,18 +79,16 @@ export class AuthService {
       this.isLoading.set(true);
 
       //Reviso si la contraseña es valida
-      this.checkPassword(password)
+      this.checkPassword(password);
 
       const authResponse = await createUserWithEmailAndPassword(this.auth, email, password);
       const token = await authResponse.user.getIdToken();
 
       //Envío el token al back
-      const profileId = (await firstValueFrom(this.verifyUser(token))).profileId
-      localStorage.setItem('profileId', String(profileId))
+      const profileId = (await firstValueFrom(this.verifyUser(token))).profileId;
+      localStorage.setItem('profileId', String(profileId));
       this.isLoading.set(false);
-      this.redirectTo(`profile/${profileId}`)
-
-
+      this.redirectTo(`profile/${profileId}`);
     } catch (error) {
       this.isLoading.set(false);
       if (error instanceof FirebaseError) {
@@ -112,36 +100,36 @@ export class AuthService {
 
   async checkPassword(password: string) {
     //Reviso si la contraseña es valida
-      const status = await validatePassword(getAuth(), password);
-      if (!status.isValid) {
-        const needsLowerCase = status.containsLowercaseLetter !== true;
-        const needsUpperCase = status.containsUppercaseLetter !== true;
-        const needsNumericCharacter = status.containsNumericCharacter !== true;
+    const status = await validatePassword(getAuth(), password);
+    if (!status.isValid) {
+      const needsLowerCase = status.containsLowercaseLetter !== true;
+      const needsUpperCase = status.containsUppercaseLetter !== true;
+      const needsNumericCharacter = status.containsNumericCharacter !== true;
 
-        console.log({
-          hasLowerCase: needsLowerCase, hasUpperCase: needsUpperCase, HasNumericCharacter: needsNumericCharacter
-        })
-
-      }
-      return {}
+      console.log({
+        hasLowerCase: needsLowerCase,
+        hasUpperCase: needsUpperCase,
+        HasNumericCharacter: needsNumericCharacter,
+      });
+    }
+    return {};
   }
 
   async logout() {
     await signOut(this.auth);
-    localStorage.removeItem('profileId')
-    this.redirectTo('/auth/login')
+    localStorage.removeItem('profileId');
+    this.redirectTo('/auth/login');
   }
-
 
   //Envío el token de firebase al back para verificar que sea usuario de mi aplicación
   verifyUser(uid: string): Observable<LoginResponse> {
-     return this.http
-    .post<BackendResponse>(`${baseUrl}/auth/login`, { UIDtoken: uid })
-    .pipe(map(response => response.result));
+    return this.http
+      .post<BackendResponse>(`${baseUrl}/auth/login`, { UIDtoken: uid })
+      .pipe(map((response) => response.result));
   }
 
   redirectTo(path: string) {
-    this.route.navigate([`${path}`])
+    this.route.navigate([`${path}`]);
   }
 
   private getErrorMessage(code: string): string {
@@ -154,7 +142,7 @@ export class AuthService {
       'auth/popup-closed-by-user': 'Cerraste el popup antes de completar el login',
       'auth/cancelled-popup-request': 'El popup fue cancelado',
       'auth/invalid-credential': 'Credenciales inválidas',
-      'auth/password-does-not-meet-requirements': 'Contraseña no válida'
+      'auth/password-does-not-meet-requirements': 'Contraseña no válida',
     };
 
     return errors[code] ?? `Error de autenticación: ${code}`;

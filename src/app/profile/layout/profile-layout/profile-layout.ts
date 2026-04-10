@@ -7,4 +7,8 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './profile-layout.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileLayout { }
+export class ProfileLayout {
+
+
+
+}

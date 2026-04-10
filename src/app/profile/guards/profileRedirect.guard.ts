@@ -18,7 +18,7 @@ export class ProfileRedirectGuard implements CanActivate {
     const profileId = localStorage.getItem('profileId')
     if(profileId === null) {
       this._authService.logout()
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
     }
     this.router.navigate(['/profile', profileId]);
     return false;

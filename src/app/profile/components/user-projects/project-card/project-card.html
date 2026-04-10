@@ -1,17 +1,31 @@
 <section class="steam-glass mb-2">
   <div class="flex gap-3 p-2">
-    <img
+    @if(project().projectURL) {
+      <a [href]="project().projectURL" target="_blank">
+        <img
       [src]="imgUrl()"
       [alt]="project().projectName"
       class="w-46 h-26 object-cover shrink-0 hover:cursor-pointer"
     />
+      </a>
+    } @else {
+      <img
+      [src]="imgUrl()"
+      [alt]="project().projectName"
+      class="w-46 h-26 object-cover shrink-0"
+    />
+    }
 
     <div class="flex flex-col justify-between flex-1 min-w-0">
       <div class="flex justify-between items-start">
-        <a
-          class="text-color font-montserrat text-[17px] hover:cursor-pointer hover:text-blue-400!"
+        @if (project().projectURL) {
+          <a
+          class="text-color font-montserrat text-[17px] hover:cursor-pointer hover:text-blue-400!" [href]="project().projectURL" target="_blank"
           >{{ project().projectName }}</a
         >
+        } @else {
+          <span class="text-color font-montserrat text-[17px]"> {{ project().projectName }} </span>
+        }
         <div>
           @if (_profileService.actualUserProfileId() === +profileId()) {
             <button

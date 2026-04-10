@@ -4,41 +4,14 @@
       I work with:
     </h2>
     <div class="flex flex-wrap gap-2">
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+      @for (tech of technologies(); track tech.id) {
+        <img
+        [src]="tech.imgURL"
         class="w-9 transition-transform hover:scale-110"
-        alt="javascript logo"
+        [alt]="tech.techName"
       />
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
-        class="w-9 transition-transform hover:scale-110"
-        alt="typescript logo"
-      />
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-        class="w-9 transition-transform hover:scale-110"
-        alt="react logo"
-      />
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-        class="w-9 transition-transform hover:scale-110"
-        alt="nodejs logo"
-      />
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg"
-        class="w-9 transition-transform hover:scale-110"
-        alt="nestjs logo"
-      />
-      <img
-        src="https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/angular/angular-original.svg"
-        class="w-9 transition-transform hover:scale-110"
-        alt="nestjs logo"
-      />
-      <img
-        src="https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/docker/docker-original.svg"
-        class="w-9 transition-transform hover:scale-110"
-        alt="nestjs logo"
-      />
+      }
+
     </div>
   </div>
 

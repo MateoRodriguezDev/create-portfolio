@@ -9,7 +9,6 @@ export const routes: Routes = [
     {
         path: 'profile',
         loadChildren: () => import('./profile/profile.routes'),
-        canActivate: [AuthGuard]
     },
     {
         path: 'auth',

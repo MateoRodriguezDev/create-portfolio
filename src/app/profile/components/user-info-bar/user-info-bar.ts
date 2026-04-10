@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { UserProfileResponse } from '../../interfaces/userProfile.interface';
 import { StorageService } from '../../services/firebase.service';
 import { EditProfileModal } from './edit-profile-modal/edit-profile-modal';
@@ -21,8 +21,7 @@ export class UserInfoBar {
   _profileService = inject(ProfileService);
   _authService = inject(AuthService);
 
-  private route = inject(ActivatedRoute);
-  profileId = signal<string>(this.route.snapshot.params['profileId']);
+  profileId = computed(() => this.profile().id)
 
   isModalOpen = signal(false);
   imgUrl = signal<string>('');

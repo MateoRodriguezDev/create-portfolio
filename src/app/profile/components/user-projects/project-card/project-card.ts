@@ -7,12 +7,15 @@ import {
   input,
   output,
   signal,
+  untracked,
 } from '@angular/core';
 import { Project } from '../../../interfaces/project.interface';
 import { ProjectService } from '../../../services/project.service';
 import { StorageService } from '../../../services/firebase.service';
 import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
+import { TechnologyElement } from '../../../interfaces/technologies.interface';
+import { TechnologyService } from '../../../services/technology.service';
 
 @Component({
   selector: 'app-project-card',
@@ -22,24 +25,37 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProjectCard {
   project = input.required<Project>();
-  _profileService = inject(ProfileService)
+  editing = output<Project>();
 
+  _profileService = inject(ProfileService);
+  _projectService = inject(ProjectService);
+  _storageService = inject(StorageService);
+  _techService = inject(TechnologyService);
   private route = inject(ActivatedRoute);
+
   profileId = signal<string>(this.route.snapshot.params['profileId']);
+  imgUrl = signal<string>('');
 
   constructor() {
     effect(() => {
       const imgPath = this.project().imgURL;
       this._storageService.getImageUrl(imgPath).then((url) => this.imgUrl.set(url));
+
+
     });
+
+    effect(() => {
+    const techs = this.project().technologies;
+    if (techs.length > 0) {
+      untracked(() => this._techService.updateTotalTechs(techs));
+    }})
+
+
+
+
   }
 
-  editing = output<Project>();
 
-  _projectService = inject(ProjectService);
-  _storageService = inject(StorageService);
-
-  imgUrl = signal<string>('');
 
   //Envío la información del proyecto que se esta por editar
   onEditing() {
@@ -50,6 +66,7 @@ export class ProjectCard {
     this._projectService.deleteProject(id).subscribe({
       next: () => {
         console.log('Proyecto eliminado correctamente');
+        this._techService.removeTotalTechs(this.project().technologies)
       },
       error: (err) => {
         console.error(err);

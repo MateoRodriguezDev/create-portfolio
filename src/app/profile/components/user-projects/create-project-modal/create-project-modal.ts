@@ -94,6 +94,7 @@ export class CreateProjectModal {
   projectForm = this.fb.group({
     projectName: ['', Validators.required],
     descripcion: ['', Validators.required],
+    projectURL: [''],
     technologyCat: [''],
     technologyIds: [[] as number[], Validators.required],
   });
@@ -144,6 +145,13 @@ export class CreateProjectModal {
     formData.append('descripcion', this.projectForm.value.descripcion!);
     formData.append('technologyIds', JSON.stringify(this.projectForm.value.technologyIds!));
     formData.append('userProfileId', String(this.userProfileId));
+
+
+    //Si projectUrl existe
+    if(this.projectForm.value.projectURL && this.projectForm.value.projectURL !== ''){
+      formData.append('projectURL', String(this.projectForm.value.projectURL));
+    }
+
     //Si se edito la imagen del proyecto se agrega al formulario
     if (this.selectedFile()) {
       formData.append('file', this.selectedFile()!);
@@ -185,5 +193,8 @@ export class CreateProjectModal {
   }
   get technologyIds() {
     return this.projectForm.get('technologyIds');
+  }
+  get projectURL() {
+    return this.projectForm.get('projectURL');
   }
 }
