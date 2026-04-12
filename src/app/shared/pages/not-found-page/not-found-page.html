@@ -1,1 +1,14 @@
-<p>not-found-page works!</p>,
+
+<div class="h-full flex flex-col justify-center items-center">
+
+  <h1 class="flex flex-col text-center uppercase tracking-widest font-bold text-6xl"> <span class="text-gray-800">4<span class="text-error">0</span>4</span> Not Found</h1>
+  <h2 class="mb-10 mt-2 font-semibold">Sorry, this profile doesn't exist</h2>
+
+  @if (_authService.isLoggedIn() !== undefined) {
+  <button class="btn" type="button" (click)="router.navigate(['/profile'])">
+    {{
+      _authService.isLoggedIn() && _authService.isLoggedIn() ? 'Back to my profile' : 'Create a Profile!'
+    }}
+  </button>
+}
+</div>

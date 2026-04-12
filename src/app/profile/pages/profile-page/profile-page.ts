@@ -34,7 +34,7 @@ profileId = toSignal(
 
 
 profileResource = resource({
-  params: () => this.profileId(),  // 👈 reacciona cuando profileId cambia
+  params: () => this.profileId(),
   loader: ({ params: profileId }) =>
     firstValueFrom(this._profileService.getUserProfile(+profileId))
 });
