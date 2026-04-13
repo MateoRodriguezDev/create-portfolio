@@ -54,23 +54,41 @@
 
         <!-- Select de imagen de perfil -->
         <!-- Input de imagen -->
-      <div class="flex flex-col gap-1 mt-3">
-        <label class="text-sm font-medium">Image of the project</label>
+        <div class="flex flex-col gap-1 mt-3">
+          <label class="text-sm font-medium">Image of the profile</label>
 
-        <input
-          type="file"
-          accept="image/png, image/jpeg, image/webp"
-          class="file-input file-input-bordered w-full"
-          [class.border-red-500]="!selectedFile() && !fileVerifier()"
-          (change)="onFileChange($event)"
-        />
+          <input
+            type="file"
+            accept="image/png, image/jpeg, image/webp"
+            class="file-input file-input-bordered w-full"
+            [class.border-red-500]="!selectedFile() && !fileVerifier()"
+            (change)="onFileChange($event)"
+          />
 
-        <!-- Preview -->
-        @if (previewUrl()) {
-          <img [src]="previewUrl()" alt="Preview" class="mt-2 rounded-sm h-40 object-cover" />
-        }
-      </div>
+          <!-- Preview -->
+          @if (previewUrl()) {
+            <img [src]="previewUrl()" alt="Preview" class="mt-2 rounded-sm h-40 object-cover" />
+          }
+        </div>
 
+        <!-- Select de imagen de fondo de perfil -->
+        <!-- Input de imagen -->
+        <div class="flex flex-col gap-1 mt-3">
+          <label class="text-sm font-medium">Image for the background</label>
+
+          <input
+            type="file"
+            accept="image/png, image/jpeg, image/webp"
+            class="file-input file-input-bordered w-full"
+            [class.border-red-500]="!selectedFile2() && !fileVerifier2()"
+            (change)="onFileChange2($event)"
+          />
+
+          <!-- Preview -->
+          @if (previewUrl2()) {
+            <img [src]="previewUrl2()" alt="Preview" class="mt-2 rounded-sm h-40 object-cover" />
+          }
+        </div>
 
         <button class="btn btn-secondary mt-2" type="submit">
           @if (isLoading()) {

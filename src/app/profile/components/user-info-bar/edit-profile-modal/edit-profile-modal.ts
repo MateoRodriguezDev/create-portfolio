@@ -34,6 +34,10 @@ export class EditProfileModal {
   fileVerifier = signal<boolean>(true);
   previewUrl = signal<string | null>(null);
 
+  selectedFile2 = signal<File | null>(null);
+  fileVerifier2 = signal<boolean>(true);
+  previewUrl2 = signal<string | null>(null);
+
   fb = inject(FormBuilder);
 
   //Traigo los titulos desde el back
@@ -64,6 +68,22 @@ export class EditProfileModal {
     reader.readAsDataURL(file);
   }
 
+    //Logica para la subida de archivo
+  onFileChange2(event: Event) {
+    const input2 = event.target as HTMLInputElement;
+    const file2 = input2.files?.[0];
+
+    if (!file2) return;
+
+    this.fileVerifier2.set(true);
+    this.selectedFile2.set(file2);
+
+    // Preview
+    const reader2 = new FileReader();
+    reader2.onload = () => this.previewUrl2.set(reader2.result as string);
+    reader2.readAsDataURL(file2);
+  }
+
   onSubmit() {
     this.profileForm.markAllAsTouched();
 
@@ -79,6 +99,11 @@ export class EditProfileModal {
     //Si se edito la imagen de perfil se agrega al formulario
     if (this.selectedFile()) {
       formData.append('file', this.selectedFile()!);
+    }
+
+    //Si se edito la imagen de perfil se agrega al formulario
+    if (this.selectedFile2()) {
+      formData.append('file2', this.selectedFile2()!);
     }
 
     this.isLoading.set(true);

@@ -32,6 +32,7 @@ export class ProfileService {
       .pipe(
         map(response => response.result),
         tap(profile => {
+          console.log(profile)
           this.actualUserProfileId.set(Number(localStorage.getItem('profileId')))
           this._projectService.projects.set(profile.projects)
           this._linkService.links.set(profile.links)
