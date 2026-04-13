@@ -38,6 +38,8 @@ export class EditProfileModal {
   fileVerifier2 = signal<boolean>(true);
   previewUrl2 = signal<string | null>(null);
 
+  removeBackground = signal<boolean>(false);
+
   fb = inject(FormBuilder);
 
   //Traigo los titulos desde el back
@@ -68,7 +70,7 @@ export class EditProfileModal {
     reader.readAsDataURL(file);
   }
 
-    //Logica para la subida de archivo
+  //Logica para la subida de archivo
   onFileChange2(event: Event) {
     const input2 = event.target as HTMLInputElement;
     const file2 = input2.files?.[0];
@@ -104,6 +106,11 @@ export class EditProfileModal {
     //Si se edito la imagen de perfil se agrega al formulario
     if (this.selectedFile2()) {
       formData.append('file2', this.selectedFile2()!);
+    }
+
+    //Si quiero borrar el fondo
+    if (this.removeBackground()) {
+      formData.append('removeBackground', 'true');
     }
 
     this.isLoading.set(true);
