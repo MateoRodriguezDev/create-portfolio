@@ -5,7 +5,9 @@ import { Storage, ref, getDownloadURL } from '@angular/fire/storage';
 export class StorageService {
   private storage = inject(Storage);
 
-  getImageUrl(path: string): Promise<string> {
+  getImageUrl(path: string | null): Promise<string> {
+
+    if(path === null) return Promise.resolve('/assets/images/NoProfile.png')
 
     if(path === '') return Promise.resolve('/assets/images/NoProfile.png')
 

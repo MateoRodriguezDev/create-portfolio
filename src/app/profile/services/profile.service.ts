@@ -16,11 +16,14 @@ export class ProfileService {
 
   actualUserProfileId = signal(-1)
 
+  backgroundURL = signal<string | null>(null)
+
   editableProfile = signal<EditProfile>({
     userName: '',
     titleId: 0,
     fullName: '',
-    profilePictureURL: ''
+    profilePictureURL: '',
+    backgroundURL: ''
   })
 
   _projectService = inject(ProjectService)
@@ -32,13 +35,14 @@ export class ProfileService {
       .pipe(
         map(response => response.result),
         tap(profile => {
-          console.log(profile)
           this.actualUserProfileId.set(Number(localStorage.getItem('profileId')))
           this._projectService.projects.set(profile.projects)
           this._linkService.links.set(profile.links)
+          this.backgroundURL.set(profile.backgroundURL)
           this.editableProfile().userName = profile.userName
           this.editableProfile().titleId = profile.title?.id ?? 0
           this.editableProfile().profilePictureURL = profile.profilePictureURL,
+          this.editableProfile().backgroundURL = profile.backgroundURL,
           this.editableProfile().fullName = profile.fullName
         }),
         catchError(error => {
