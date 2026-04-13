@@ -8,7 +8,7 @@
       @if (_authService.isLoggedIn() !== undefined) {
         <button class="btn" type="button" (click)="router.navigate(['/profile'])">
           {{
-            _authService.isLoggedIn() && _authService.isLoggedIn()
+            _authService.isLoggedIn()
               ? 'My Profile'
               : 'Create a Profile!'
           }}

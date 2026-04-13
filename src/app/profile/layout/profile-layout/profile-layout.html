@@ -1,5 +1,5 @@
 <section
-  [style.backgroundImage]="'url(' + imgUrl() + ')'"
-  class="flex justify-center bg-black bg-auto bg-no-repeat min-h-screen bg-top">
+  [style.background]="imgUrl() ? 'url(' + imgUrl() + ') center/cover no-repeat' : gradient()"
+  class="flex justify-center min-h-screen">
   <router-outlet/>
 </section>
