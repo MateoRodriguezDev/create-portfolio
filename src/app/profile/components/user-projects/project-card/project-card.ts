@@ -16,16 +16,19 @@ import { ProfileService } from '../../../services/profile.service';
 import { ActivatedRoute } from '@angular/router';
 import { TechnologyElement } from '../../../interfaces/technologies.interface';
 import { TechnologyService } from '../../../services/technology.service';
+import { FullArtModal } from "./full-art-modal/full-art-modal";
 
 @Component({
   selector: 'app-project-card',
-  imports: [],
+  imports: [FullArtModal],
   templateUrl: './project-card.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectCard {
   project = input.required<Project>();
   editing = output<Project>();
+
+  displayArtModal = signal<boolean>(false)
 
   _profileService = inject(ProfileService);
   _projectService = inject(ProjectService);
@@ -61,6 +64,15 @@ export class ProjectCard {
   onEditing() {
     this.editing.emit(this.project());
   }
+
+  closeModal() {
+    this.displayArtModal.set(false)
+  }
+
+  openModal() {
+    this.displayArtModal.set(true)
+  }
+
 
   deleteProject(id: number) {
     this._projectService.deleteProject(id).subscribe({

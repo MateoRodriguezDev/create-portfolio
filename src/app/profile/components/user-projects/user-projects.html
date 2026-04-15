@@ -1,6 +1,5 @@
-<section class="rounded-sm p-2 w-full steam-glass">
-  <h2 class="text-[13px] text-gray-200 font-montserrat mb-2 mt-2 uppercase tracking-widest">My Projects</h2>
-  <div class="flex flex-col gap-3 pt-3">
+<section class="rounded-sm w-full">
+  <div class="flex flex-col gap-3">
     @for (project of projects(); track $index) {
       <app-project-card [project]="project" (editing)="setEditingProject($event)"/>
     }
@@ -14,7 +13,6 @@
 
 @if (isModalOpen() && _profileService.actualUserProfileId() === +profileId()) {
     <app-create-project-modal (close)="closeModal()" [editingProject]="editingProject()" />
-
 
 }
 

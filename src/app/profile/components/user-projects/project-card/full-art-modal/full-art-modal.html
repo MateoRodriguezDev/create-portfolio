@@ -1,0 +1,11 @@
+<div class="fixed inset-0 bg-black/50 z-40 flex items-center justify-center" (click)="onClose()">
+
+  <div>
+    <div>
+      <img [src]="imgUrl()" [alt]="project().projectName">
+    </div>
+  </div>
+
+  <button class="btn btn-primary" (click)="onClose()">X</button>
+
+</div>

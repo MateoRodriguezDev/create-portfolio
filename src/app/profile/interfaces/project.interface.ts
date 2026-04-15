@@ -7,6 +7,7 @@ export interface Project {
   projectURL?:       string;
   descripcion:  string | null;
   technologies: TechnologyElement[];
+  displayArt: boolean;
 }
 
 export interface CreateProject extends Omit<Project, 'technologies'> {
