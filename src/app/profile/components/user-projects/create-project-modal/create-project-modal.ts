@@ -57,6 +57,14 @@ export class CreateProjectModal {
     });
   });
 
+ constructor() {
+  effect(() => {
+    console.log('effect')
+    const displayArt = this.editingProject()?.displayArt || false
+    this.displayArt.set(displayArt)
+  })
+ }
+
   onTechCategoryChanged() {
     return this.projectForm
       .get('technologyCat')!
