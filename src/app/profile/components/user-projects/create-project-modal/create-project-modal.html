@@ -98,6 +98,17 @@
         }
       </div>
 
+      <!-- Checbox para mostrar arte -->
+       <div class="flex gap-2 items-center">
+            <p>Do you want to display art?</p>
+            <input
+              type="checkbox"
+              class="checkbox checkbox-primary"
+              [checked]="displayArt()"
+              (change)="displayArt.set($event.target.checked)"
+            />
+          </div>
+
       <button class="btn btn-secondary mt-2" type="submit">
         @if (isLoading()) {
           <span class="loading loading-spinner loading-sm"></span>

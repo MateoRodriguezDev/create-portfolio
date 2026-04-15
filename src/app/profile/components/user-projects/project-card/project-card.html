@@ -93,5 +93,5 @@
 
 
 @if (displayArtModal()) {
-  <app-full-art-modal [project]="project()"  (close)="closeModal()"/>
+  <app-full-art-modal [project]="project()"  (close)="closeModal()"  (delete)="deleteProject(project().id)"  (edit)="onEditing()"/>
 }

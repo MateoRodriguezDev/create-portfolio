@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
   output,
@@ -31,8 +32,9 @@ export class CreateProjectModal {
   fb = inject(FormBuilder);
 
   isLoading = signal<boolean>(false);
-  selectedFile = signal<File | null>(null);
+  displayArt = signal<boolean>(false)
   fileVerifier = signal<boolean>(true);
+  selectedFile = signal<File | null>(null);
   previewUrl = signal<string | null>(null);
   technologiesForm = signal<Technology[]>([]);
   selectedTechnologies = signal<number[]>([]);
@@ -117,6 +119,7 @@ export class CreateProjectModal {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
 
+
     if (!file) return;
 
     this.fileVerifier.set(true);
@@ -145,6 +148,9 @@ export class CreateProjectModal {
     formData.append('descripcion', this.projectForm.value.descripcion!);
     formData.append('technologyIds', JSON.stringify(this.projectForm.value.technologyIds!));
     formData.append('userProfileId', String(this.userProfileId));
+
+      formData.append('displayArt', String(this.displayArt()));
+
 
 
     //Si projectUrl existe
