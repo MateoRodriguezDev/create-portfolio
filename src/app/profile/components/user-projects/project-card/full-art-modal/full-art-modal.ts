@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
   input,
@@ -33,7 +34,13 @@ export class FullArtModal {
 
   project = input.required<Project>();
   close = output<void>();
+  edit = output<void>();
+  delete = output<void>()
+
+
   imgUrl = signal<string>('');
+  technologies = computed(() => this.project().technologies.map((t) => t.technology));
+
 
     constructor() {
     effect(() => {
@@ -51,5 +58,15 @@ export class FullArtModal {
 
   onClose() {
     this.close.emit();
+  }
+
+  onEdit() {
+    this.close.emit()
+    this.edit.emit()
+  }
+
+  onDelete() {
+    this.close.emit()
+    this.delete.emit()
   }
 }
