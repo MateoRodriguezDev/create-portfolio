@@ -1,0 +1,15 @@
+services:
+  gestoreventos-frontend:
+    container_name: portfolio-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gestoreventos-frontend:latest
+    ports:
+      - "3001:80"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
